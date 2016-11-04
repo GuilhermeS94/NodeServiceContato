@@ -1,0 +1,4 @@
+{
+    "expres" : "npm install express",
+    "mysql" : "npm install mysql"    
+}

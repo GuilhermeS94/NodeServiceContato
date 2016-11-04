@@ -1,13 +1,14 @@
-var db = require('mysql');//mmysel EXEMPLO
+var db = require('mysql');//mysql EXEMPLO
 
 var connection = db.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: '',
-    database: 'Contatos'
+    port: 3306,
+    database: 'contatos'
 });
 
-connection.connnect(function(err){
+connection.connect(function(err){
     if(err) throw err;
 });
 
