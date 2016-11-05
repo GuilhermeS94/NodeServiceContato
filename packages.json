@@ -1,4 +1,5 @@
 {
     "expres" : "npm install express",
-    "mysql" : "npm install mysql"    
+    "mysql" : "npm install mysql",
+    "body-parser" : "npm install body-parser"    
 }
