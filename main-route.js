@@ -34,7 +34,7 @@ route.post('/insert', function(request, response){
 route.get('/read', function(request, response){
     banco.query('SELECT * FROM agenda', function(error, rows){
         if(error) return response.status(400).json(error);
-        console.log(rows);
+        
         response.status(200).send(rows);
     });
 });
@@ -81,7 +81,34 @@ route.post('/up', function(request, response){
 
 //delete page
 route.get('/delete', function(request, response){
-    response.send("Delete Page");
+    banco.query('SELECT * FROM agenda',function(error, rows){
+        if(error) return response.status(400).json(error);
+        var lista = "<ul>";
+        for(var i=0; i < rows.length; i++){
+            var item = rows[i];
+            lista += "<li><form method='POST' action='delete/"+item.Id+"'><input type='submit' value='Deletar'>"+
+                        item.Nome+" - "+item.Contato+
+                     "</form></li>";
+        }
+
+        lista += "</ul>";
+
+        return response.status(200).send(lista);
+        
+    });
+});
+//delete Action
+route.post("/delete/:id", function(request, response){
+    if(!request.params.id){        
+        return response.status(200).json({ leu : false, msg : "Id não especificado!!!"});;
+    }
+    var id = request.params.id;
+    banco.query('DELETE FROM agenda WHERE Id=?', [id],
+        function(error, rows){
+            if(error) return response.status(400).json(error);
+            
+            response.status(200).json({ deletou : true});
+    });
 });
 
 route.listen(8000);
